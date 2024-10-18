@@ -6,17 +6,26 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:sqlserver://db:1433;databaseName=gerenciamento_de_trafego
-      - SPRING_DATASOURCE_USERNAME=sa
-      - SPRING_DATASOURCE_PASSWORD=123456
+      - SPRING_DATASOURCE_URL=jdbc:oracle:thin:@db:1521:ORCL
+      - SPRING_DATASOURCE_USERNAME=RM98467
+      - SPRING_DATASOURCE_PASSWORD=040500
       - JWT_SECRET=fiap
     depends_on:
       - db
+      - sqlserver
 
   db:
+    image: gvenzl/oracle-xe:latest
+    environment:
+      - ORACLE_PASSWORD=Rb04052000*
+      - ORACLE_DATABASE=ORCL
+    ports:
+      - "1521:1521"
+
+  sqlserver:
     image: mcr.microsoft.com/mssql/server:2019-latest
     environment:
       - ACCEPT_EULA=Y
-      - SA_PASSWORD=123456
+      - SA_PASSWORD=Rb04052000*
     ports:
       - "1433:1433"
